@@ -10,7 +10,7 @@
     "biodome"
   ],
   "scripts": {
-    "test": "make test"
+    "test": "./node_modules/.bin/mocha"
   },
   "dependencies": {
     "ws": "~0.4.31",
