@@ -1,6 +1,4 @@
-biodome-client [![Build Status](https://secure.travis-ci.org/andrewk/biodome-client.png?branch=master)](http://travis-ci.org/andrewk/biodome-client)
-
-==============
+# biodome-client  [![Build Status](https://secure.travis-ci.org/andrewk/biodome-client.png?branch=master)](http://travis-ci.org/andrewk/biodome-client)
 
 JavaScript client for [biodome](https://github.com/andrewk/biodome)
 
