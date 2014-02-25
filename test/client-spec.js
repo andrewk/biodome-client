@@ -61,7 +61,7 @@ describe('#setDeviceState', function() {
       var client = clientFactory({'host': 'localhost:'+port, 'ssl':false});
 
       client.on('open', function(cl) {
-        cl.setDeviceState({ 'id' : 'lights' }, 'off');
+        cl.setDeviceState('lights', 'off');
       });
 
       client.on('close', function() {
