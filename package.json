@@ -1,0 +1,28 @@
+{
+  "name": "biodome-client",
+  "description": "API client for biodome",
+  "version": "0.0.1",
+  "author": "Andrew Krespanis",
+  "license": "MIT",
+  "homepage": "https://github.com/andrewk/biodome-client",
+  "keywords": [
+    "automation",
+    "biodome"
+  ],
+  "scripts": {
+    "test": "make test"
+  },
+  "dependencies": {
+    "ws": "~0.4.31",
+    "bunyan": "~0.22.1"
+  },
+  "devDependencies": {
+    "chai": "1.8.x",
+    "mocha": "1.17.x",
+    "supertest": "0.8.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrewk/biodome-client.git"
+  }
+}
