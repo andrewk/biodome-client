@@ -17,7 +17,7 @@ describe('#constructor', function() {
         done();
       });
     };
- 
+
     mockServer(++port, {}, doTest);
   });
 });
@@ -33,7 +33,7 @@ describe('event:open', function() {
         done();
       });
     };
-    mockServer(++port, {}, doTest);  
+    mockServer(++port, {}, doTest);
   });
 });
 
@@ -51,7 +51,7 @@ describe('event:close', function() {
         done();
       });
     };
-    mockServer(++port, {}, doTest);  
+    mockServer(++port, {}, doTest);
   });
 });
 
@@ -77,8 +77,68 @@ describe('#setDeviceState', function() {
           clientConn.close();
         });
       }
-    }; 
+    };
 
-    mockServer(++port, listeners, doTest);  
+    mockServer(++port, listeners, doTest);
   });
+
+  it('emits message_error event when error data sent from server', function(done) {
+    var doTest = function(server) {
+      var client = clientFactory({'host': 'localhost:'+port, 'ssl':false});
+
+      client.on('open', function(cl) {
+        cl.setDeviceState('foo', 'off');
+      });
+
+      client.on('message_error', function(error) {
+        expect(error).to.equal('unknown device id');
+        client.close();
+      });
+
+      client.on('close', function() {
+        server.close();
+        done();
+      });
+    };
+
+    var listeners = {
+      'connection' : function(clientConn) {
+        clientConn.send(JSON.stringify(
+          { 'type' : 'error', 'message' : 'unknown device id' }
+        ));
+      }
+    };
+
+    mockServer(++port, listeners, doTest);
+  });
+
+  it('emits server_error on invalid message data', function(done) {
+    var doTest = function(server) {
+      var client = clientFactory({'host': 'localhost:'+port, 'ssl':false});
+      client.responseValidator = { isValid : function() { return false; } };
+
+      client.on('open', function(cl) {
+        cl.setDeviceState('foo', 'off');
+      });
+
+      client.on('server_error', function(error) {
+        expect(error).to.equal('Server returned invalid response');
+        client.close();
+      });
+
+      client.on('close', function() {
+        server.close();
+        done();
+      });
+    };
+
+    var listeners = {
+      'connection' : function(clientConn) {
+        clientConn.send('This wont end well');
+      }
+    };
+
+    mockServer(++port, listeners, doTest);
+  });
+
 });
