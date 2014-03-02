@@ -115,7 +115,11 @@ describe('#setDeviceState', function() {
   it('emits server_error on invalid message data', function(done) {
     var doTest = function(server) {
       var client = clientFactory({'host': 'localhost:'+port, 'ssl':false});
-      client.responseValidator = { isValid : function() { return false; } };
+      client.messageValidator = { 
+        parse : function() { 
+          return { 'valid' : false, 'error' : 'blarg' } 
+        }
+      };
 
       client.on('open', function(cl) {
         cl.setDeviceState('foo', 'off');
@@ -127,6 +131,7 @@ describe('#setDeviceState', function() {
       });
 
       client.on('close', function() {
+
         server.close();
         done();
       });
