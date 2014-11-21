@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "ws": "~0.4.31",
-    "bunyan": "~0.22.1"
+    "bunyan": "~0.22.1",
+    "superagent": "~0.21.0"
   },
   "devDependencies": {
     "chai": "1.8.x",
