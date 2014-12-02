@@ -1,7 +1,7 @@
 {
   "name": "biodome-client",
   "description": "API client for biodome",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Andrew Krespanis",
   "license": "MIT",
   "homepage": "https://github.com/andrewk/biodome-client",
@@ -13,17 +13,18 @@
     "test": "./node_modules/.bin/mocha"
   },
   "dependencies": {
-    "ws": "~0.4.31",
+    "ws": "~0.4",
     "superagent": "~0.21.0",
-    "es6-promise": "~2.0.0"
+    "es6-promise": "^2"
   },
   "devDependencies": {
     "chai": "^1",
     "mocha": "^1",
-    "sinon": "^1.7",
+    "sinon": "^1",
     "chai-as-promised": "^4",
     "supertest": "~0.8",
-    "jwt-simple": "~0.2"
+    "sinon-chai": "^2",
+    "express": "^4"
   },
   "repository": {
     "type": "git",
