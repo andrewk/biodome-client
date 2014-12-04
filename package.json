@@ -19,12 +19,13 @@
   },
   "devDependencies": {
     "chai": "^1",
+    "chai-as-promised": "^4",
+    "express": "^4",
     "mocha": "^1",
     "sinon": "^1",
-    "chai-as-promised": "^4",
-    "supertest": "~0.8",
+    "sinon-as-promised": "^1.4.1",
     "sinon-chai": "^2",
-    "express": "^4"
+    "supertest": "~0.8"
   },
   "repository": {
     "type": "git",

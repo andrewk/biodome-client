@@ -5,44 +5,39 @@ JavaScript client for [biodome](https://github.com/andrewk/biodome)
 The biodome-client is how any services wishing to utilise the biodome server do so. Services include device scheduling, environment compensation, logging, UI client / control panel, emergency notification system, etc.
 
 ```javascript
-var BiodomeClient = require('biodome-client');
+var biodomeClient = require('biodome-client');
+
 var conf = {
-  'host' : 'localhost:8888',
-  'ssl'  : false
+  'host' : 'localhost:8888'
 };
 
-// client connects on construction
-var client = new BiodomeClient(conf);
+var client = biodomeClient(conf);
 
-client.on('open' function() {
-  console.log('connected to server');
+// sending commands to biodome server
+// Will attempt to fetch and store a JWT token if it doesn't already have a valid one
 
-  // Get JSON of all endpoints from biodome server
-  var endpoints = client.biodomeStatus();
+client.read('outside_temp')
+  .then(function(data) {
+    // data is JSON data for endpoint with ID of "temperature"
+  }).catch(function(err) {
+    // oh. that's unfortunate.
+  });
 
-  // turn all devices on
-  for(var i in endpoints.devices) {
-    client.setDeviceState(endpoints.devices[i].id, 'on');
-  };
+// write HIGH to endpoint with an ID of "light"
+client.write('light', 1)
+  .then(function(data) { ... });
 
-  // output all sensor readings
-  for(var s in endpoints.sensors) {
-    var sensor = endpoints.sensors[s];
-    console.log(sensor.id, sensor.value, sensor.updatedAt);
-  }
-});
+// ...or you can use more complex selectors as first param
+client.read({ 'type' : 'temperature' })
+  .then(function(data) {
+    // data is all JSON of matching endpoints
+  });
 
-// log new sensor data
-client.on('sensor:update', function(sensor) {
-  console.log('sensor updated!', sensor.id, sensor.value);
-});
-
-// log device switching
-client.on('device:update', function(device) {
-  console.log(device.id + ' is now ' + device.state);
-});
-
-client.on('close' function() {
-  console.log('disconnected from server');
+// ...or call with your own command object
+client.command({
+  'selector' : {'type' : 'lights', 'value' : 1 },
+  'instruction' : {'type' : 'write', 'value' : 0 }
+}).then(function(endpoints)) {
+  // endpoints is JSON data of affected endpoints
 });
 ```
