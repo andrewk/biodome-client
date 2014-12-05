@@ -17,6 +17,7 @@ chai.use(chaiAsPromised);
 var config = {
   'user' : 'TIMMEH',
   'password' : 'password123',
+  'token' : '1235twe8g9d8fas.q25tgrasdfkajsdf.q349tqwjsadksdf',
   'routes' : routes('http://localhost:9022')
 };
 
@@ -35,9 +36,17 @@ describe('TokenClient', function() {
     clock.restore();
   });
 
-  describe('#construct', function() {
-    it('sets config', function() {
-      expect(client.conf).to.equal(config)
+  describe('#construct', function() { 
+    it('sets user', function() {
+      expect(client.user).to.equal(config.user);
+    });
+
+    it('sets password', function() {
+      expect(client.password).to.equal(config.password);
+    });
+
+    it('sets token', function() {
+      expect(client.token).to.equal(config.token);
     });
 
     it('sets routes', function() {
