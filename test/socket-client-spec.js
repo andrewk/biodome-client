@@ -59,10 +59,15 @@ describe('event:close', function() {
 describe('event:data', function() {
   it('parses JSON received from the server and broadcasts a data event', function(done) {
     var doTest = function(server) {
-      var client = new SocketClient({'host': 'localhost:'+port, 'ssl':false});
+      var client = new SocketClient({'host': 'localhost:'+port, 'isSSL':false});
 
       client.on('open', function() {
-        server.socketServer.clients[0].send(JSON.stringify({"foo":"bar"}));
+        server.socketServer.clients[0].send(JSON.stringify({
+          'type': 'data',
+          'data': {
+            'foo': 'bar'
+          }
+        }));
       });
 
       client.on('data', function(data) {

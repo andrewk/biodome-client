@@ -10,18 +10,23 @@
     "biodome"
   ],
   "scripts": {
-    "test": "./node_modules/.bin/mocha"
+    "start": "babel-node examples/basic.js",
+    "test": "mocha --compilers js:babel/register"
   },
   "dependencies": {
-    "ws": "~0.4",
+    "babel": "^5.0.0",
+    "bluebird": "^2.0.0",
+    "envc": "^1.0.0",
+    "eventemitter3": "^0.1.6",
+    "most": "^0.13.0",
     "superagent": "~0.21.0",
-    "es6-promise": "^2"
+    "ws": "~0.7.0"
   },
   "devDependencies": {
     "chai": "^1",
     "chai-as-promised": "^4",
     "express": "^4",
-    "mocha": "^1",
+    "mocha": "^2",
     "sinon": "^1",
     "sinon-as-promised": "^1.4.1",
     "sinon-chai": "^2",
