@@ -1,16 +1,15 @@
-var chai = require('chai')
-  , util = require('util')
-  , request = require('supertest')
-  , WebSocket = require('ws')
-  , expect = chai.expect
-  , mockServer = require('./support/server')
-  , SocketClient = require('../lib/socket-client')
-  , port = 9900;
+import chai from 'chai';
+import WebSocket from 'ws';
+import mockServer from './support/server';
+import SocketClient from '../lib/SocketClient';
+
+let port = 9900;
+const expect = chai.expect;
 
 describe('#constructor', function() {
   it('connects to the server', function(done) {
-    var doTest = function(server) {
-      var client = new SocketClient({'host': 'localhost:'+port, 'ssl':false});
+    const doTest = function(server) {
+      const client = new SocketClient({'host': 'localhost:'+port, 'ssl':false});
       client.connection.on('open', function() {
         expect(client.connection.readyState).to.equal(WebSocket.OPEN);
         client.close();
@@ -25,8 +24,8 @@ describe('#constructor', function() {
 
 describe('event:open', function() {
   it('broadcasts an open event with itself as param', function(done) {
-    var doTest = function(server) {
-      var client =  new SocketClient({'host': 'localhost:'+port, 'ssl':false});
+    const doTest = function(server) {
+      const client =  new SocketClient({'host': 'localhost:'+port, 'ssl':false});
       client.on('open', function(passedClient) {
         expect(passedClient).to.deep.equal(client);
         client.close();
@@ -40,8 +39,8 @@ describe('event:open', function() {
 
 describe('event:close', function() {
   it('broadcasts a close event with itself as param', function(done) {
-    var doTest = function(server) {
-      var client = new SocketClient({'host': 'localhost:'+port, 'ssl':false});
+    const doTest = function(server) {
+      const client = new SocketClient({'host': 'localhost:'+port, 'ssl':false});
       client.on('open', function(cl) {
         cl.close();
       });
@@ -58,8 +57,8 @@ describe('event:close', function() {
 
 describe('event:data', function() {
   it('parses JSON received from the server and broadcasts a data event', function(done) {
-    var doTest = function(server) {
-      var client = new SocketClient({'host': 'localhost:'+port, 'isSSL':false});
+    const doTest = function(server) {
+      const client = new SocketClient({'host': 'localhost:'+port, 'isSSL':false});
 
       client.on('open', function() {
         server.socketServer.clients[0].send(JSON.stringify({
