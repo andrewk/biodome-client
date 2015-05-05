@@ -2,7 +2,6 @@ var chai = require('chai')
   , request = require('supertest')
   , sinon = require('sinon')
   , sinonChai = require('sinon-chai')
-  , sinonAsPromised = require('sinon-as-promised')
   , chaiAsPromised = require('chai-as-promised')
   , expect = chai.expect
   , routes = require('../config/routes')
