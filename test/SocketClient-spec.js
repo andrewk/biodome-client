@@ -91,13 +91,6 @@ describe('receiving server data', function() {
         }));
 
         server.socketServer.clients[0].send(JSON.stringify({
-          'type': 'error',
-          'data': {
-            'foo': 'bar'
-          }
-        }));
-
-        server.socketServer.clients[0].send(JSON.stringify({
           'type': 'command',
           'data': {
             'foo': 'bar'
@@ -110,15 +103,11 @@ describe('receiving server data', function() {
         client.close();
       });
 
-      client.events.on('error', function(data) {
-        expect(JSON.stringify(data)).to.equal(JSON.stringify({"foo":"bar"}));
-        client.close();
-      });     
-      
       client.events.on('command', function(data) {
         expect(JSON.stringify(data)).to.equal(JSON.stringify({"foo":"bar"}));
         client.close();
       });
+
       client.on('connection.close', function() {
         server.close();
         done();
