@@ -13,10 +13,6 @@ export default class Client {
     return most.fromEvent('commands', this.conf.eventBus);
   }
 
-  errors() {
-    return most.fromEvent('error', this.conf.eventBus);
-  }
-
   data() {
     return most.fromEvent('data', this.conf.eventBus);
   }
@@ -59,5 +55,9 @@ export default class Client {
       this.commandDispatcher = new CommandDispatcher(emitter);
     }
     return this.commandDispatcherInstance;
+  }
+
+  command() {
+    return this.commandDispatcher().dispatch;
   }
 }
