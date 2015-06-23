@@ -1,9 +1,9 @@
-var chai = require('chai')
-  , sinon = require('sinon')
-  , expect = chai.expect
-  , isValidToken = require('../lib/jwt-token-expiry')
-  , tokens = require('./support/tokens')
-  ;
+import chai from 'chai';
+import sinon from 'sinon';
+import { isValidToken } from '../lib/jwt';
+import tokens from './support/tokens';
+
+const expect = chai.expect;
 
 describe('isValidToken', function() {
   var clock;

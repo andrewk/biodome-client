@@ -1,32 +1,34 @@
-var chai = require('chai')
-  , request = require('supertest')
-  , sinon = require('sinon')
-  , sinonChai = require('sinon-chai')
-  , chaiAsPromised = require('chai-as-promised')
-  , expect = chai.expect
-  , routes = require('../config/routes')
-  , tokenClient = require('../lib/token-client')
-  , tokens = require('./support/tokens')
-  , app = require('./support/http-server')
-  ;
+// env
+import chai from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+import chaiAsPromised from 'chai-as-promised';
+import request from 'supertest';
+import routes from '../config/routes';
+import tokens from './support/tokens';
+import server from './support/http-server';
 
+// src
+import TokenClient from '../lib/TokenClient';
+
+const expect = chai.expect;
 chai.use(sinonChai);
 chai.use(chaiAsPromised);
 
-var config = {
+const config = {
   'user' : 'TIMMEH',
   'password' : 'password123',
   'token' : '1235twe8g9d8fas.q25tgrasdfkajsdf.q349tqwjsadksdf',
   'routes' : routes('http://localhost:9022')
 };
 
-app.listen(9022);
+server.listen(9022);
 
 describe('TokenClient', function() {
   var clock, client;
 
   before(function() {
-    client = tokenClient(config);
+    client = new TokenClient(config);
     clock = sinon.useFakeTimers();
   });
 
@@ -35,7 +37,7 @@ describe('TokenClient', function() {
     clock.restore();
   });
 
-  describe('#construct', function() { 
+  describe('#construct', function() {
     it('sets user', function() {
       expect(client.user).to.equal(config.user);
     });
@@ -135,7 +137,7 @@ describe('TokenClient', function() {
       client.requestToken = function(u, p, cb) {
         cb(null, tokens.valid);
       };
-      
+
       client.token = tokens.invalid;
       client.tokenPromiseHandler(resolve, reject);
       expect(resolve).to.have.been.calledWith(tokens.valid);
