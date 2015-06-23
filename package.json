@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "babel": "^5.0.0",
-    "bluebird": "^2.0.0",
     "envc": "^1.0.0",
     "eventemitter3": "^0.1.6",
     "most": "^0.13.0",
