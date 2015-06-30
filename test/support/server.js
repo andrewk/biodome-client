@@ -13,7 +13,7 @@ module.exports = function(port, socketListeners, connectedCallback) {
     for (var i in listeners) {
       server.socketServer.on(i, listeners[i]);
     }
-    
+
     connectedCallback(server);
   });
 };

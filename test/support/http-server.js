@@ -2,7 +2,7 @@ var app = require('express')()
   , tokens = require('./tokens');
 
 // Return valid JWT
-app.post('/valid-token', function(req, res) { 
+app.post('/valid-token', function(req, res) {
   res.set('content-type', 'application/json');
   res.send({ token : tokens.valid });
 });

@@ -1,6 +1,5 @@
 import ws from 'ws';
 import TokenClient from './lib/TokenClient';
-import CommandDispatcher from './lib/CommandDispatcher';
 
 export default class Client {
   constructor({ host, isSecureConnection, events }) {
@@ -29,16 +28,6 @@ export default class Client {
       // TODO: validate message data first
       this.events.emit(msg.type, msg.data);
     });
-
-    this.commandDispatcher = new CommandDispatcher((cmd) => {
-        this.connection.send({
-          type: 'command',
-          data: cmd
-        });
-      }
-    );
-
-    this.command = this.commandDispatcher.dispatch;
   }
 
   close() {
@@ -58,10 +47,31 @@ export default class Client {
   id(id) {
     return this.data()
       .filter((d) => d.id === id);
-  };
+  }
 
   type(type) {
     return this.data()
       .filter((d) => d.type === type);
-  };
+  }
+
+  on(id) {
+    this.issueCommand({id, value: 1});
+  }
+
+  off(id) {
+    this.issueCommand({id, value: 0});
+  }
+
+  issueCommand(cmd) {
+    const mode = cmd.value === undefined ? 'read' : 'write';
+    const selector = cmd.id ? {id: cmd.id} : {type: cmd.type};
+
+    this.connection.send(JSON.stringify({
+      type: 'command',
+      data: {
+        selector,
+        instruction: {type: mode, value: cmd.value}
+      }
+    }));
+  }
 }

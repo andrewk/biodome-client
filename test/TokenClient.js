@@ -77,7 +77,7 @@ describe('TokenClient', function() {
     it('errors if server fails', function(done) {
       client.routes.token = 'http://localhost:9022/fail-500';
       client.requestToken(config.user, config.pass, function(err, result) {
-        expect(err).to.equal('Server error: 500');
+        expect(err).to.not.be.null;
         done();
       });
     });
