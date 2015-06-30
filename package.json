@@ -14,22 +14,22 @@
     "test": "mocha --compilers js:babel/register"
   },
   "dependencies": {
-    "babel": "^5.0.0",
-    "envc": "^1.0.0",
-    "eventemitter3": "^0.1.6",
-    "most": "^0.13.0",
-    "superagent": "~0.21.0",
-    "ws": "~0.7.0"
+    "babel": "^5",
+    "envc": "^2",
+    "eventemitter3": "^1",
+    "most": "~0.14",
+    "superagent": "^1",
+    "ws": "~0.7"
   },
   "devDependencies": {
-    "chai": "^1",
-    "chai-as-promised": "^4",
+    "chai": "^3",
+    "chai-as-promised": "^5",
     "express": "^4",
     "mocha": "^2",
     "sinon": "^1",
-    "sinon-as-promised": "^1.4.1",
+    "sinon-as-promised": "^4",
     "sinon-chai": "^2",
-    "supertest": "~0.8"
+    "supertest": "^1"
   },
   "repository": {
     "type": "git",
